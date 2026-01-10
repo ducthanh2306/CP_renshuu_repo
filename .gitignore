@@ -1,0 +1,18 @@
+# C++ - Loại bỏ file thực thi và file tạm
+*.exe
+*.o
+*.obj
+
+# Java - Loại bỏ file đã biên dịch
+*.class
+*.jar
+
+# Python - Loại bỏ các thư mục tạm và môi trường ảo
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# VS Code - Loại bỏ các cài đặt riêng của máy
+.vscode/

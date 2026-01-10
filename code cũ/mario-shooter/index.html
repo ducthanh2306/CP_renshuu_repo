@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Mario Shooter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu">
+            <h1 class="game-title">SUPER<br>MARIO<br>SHOOTER</h1>
+            <div class="menu-buttons">
+                <button id="start-btn" class="menu-btn">▶ START GAME</button>
+                <button id="controls-btn" class="menu-btn">🎮 CONTROLS</button>
+                <button id="highscore-btn" class="menu-btn">🏆 HIGH SCORES</button>
+            </div>
+            <p class="credits">© 2026 Mario Shooter</p>
+        </div>
+
+        <!-- Controls Screen -->
+        <div id="controls-screen" class="menu hidden">
+            <h2>CONTROLS</h2>
+            <div class="controls-list">
+                <div class="control-item"><span class="key">←→</span> or <span class="key">A D</span> Move</div>
+                <div class="control-item"><span class="key">↑</span> or <span class="key">W</span> or <span class="key">SPACE</span> Jump</div>
+                <div class="control-item"><span class="key">X</span> or <span class="key">ENTER</span> Shoot</div>
+                <div class="control-item"><span class="key">P</span> or <span class="key">ESC</span> Pause</div>
+            </div>
+            <button id="back-controls" class="menu-btn">← BACK</button>
+        </div>
+
+        <!-- High Scores Screen -->
+        <div id="highscore-screen" class="menu hidden">
+            <h2>🏆 HIGH SCORES</h2>
+            <div id="highscore-list" class="highscore-list"></div>
+            <button id="back-highscore" class="menu-btn">← BACK</button>
+        </div>
+
+        <!-- Game Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Game HUD -->
+        <div id="game-hud" class="hidden">
+            <div class="hud-left">
+                <div class="health-container">
+                    <span class="hud-label">❤️</span>
+                    <div class="health-bar">
+                        <div id="health-fill" class="health-fill"></div>
+                    </div>
+                </div>
+                <div class="lives-display">
+                    <span id="lives">❤️❤️❤️</span>
+                </div>
+            </div>
+            <div class="hud-center">
+                <div class="level-display">LEVEL <span id="level">1</span></div>
+            </div>
+            <div class="hud-right">
+                <div class="score-display">
+                    <span class="hud-label">🪙</span>
+                    <span id="coins">0</span>
+                </div>
+                <div class="score-display">
+                    <span class="hud-label">⭐</span>
+                    <span id="score">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Power-up Indicator -->
+        <div id="powerup-indicator" class="hidden">
+            <span id="powerup-icon"></span>
+            <div id="powerup-timer" class="powerup-timer"></div>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="menu hidden">
+            <h2>PAUSED</h2>
+            <div class="menu-buttons">
+                <button id="resume-btn" class="menu-btn">▶ RESUME</button>
+                <button id="restart-btn" class="menu-btn">🔄 RESTART</button>
+                <button id="quit-btn" class="menu-btn">🏠 QUIT</button>
+            </div>
+        </div>
+
+        <!-- Level Complete -->
+        <div id="level-complete" class="menu hidden">
+            <h2>LEVEL COMPLETE!</h2>
+            <div class="level-stats">
+                <p>Score: <span id="level-score">0</span></p>
+                <p>Coins: <span id="level-coins">0</span></p>
+                <p>Time Bonus: <span id="time-bonus">0</span></p>
+            </div>
+            <button id="next-level-btn" class="menu-btn">NEXT LEVEL →</button>
+        </div>
+
+        <!-- Game Over -->
+        <div id="game-over" class="menu hidden">
+            <h2 class="game-over-title">GAME OVER</h2>
+            <div class="final-stats">
+                <p>Final Score: <span id="final-score">0</span></p>
+                <p>Level Reached: <span id="final-level">1</span></p>
+            </div>
+            <div class="menu-buttons">
+                <button id="retry-btn" class="menu-btn">🔄 TRY AGAIN</button>
+                <button id="menu-btn" class="menu-btn">🏠 MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="menu hidden">
+            <h2 class="victory-title">🎉 VICTORY! 🎉</h2>
+            <p class="victory-text">You saved the kingdom!</p>
+            <div class="final-stats">
+                <p>Total Score: <span id="victory-score">0</span></p>
+                <p>Total Coins: <span id="victory-coins">0</span></p>
+            </div>
+            <div class="menu-buttons">
+                <button id="play-again-btn" class="menu-btn">🔄 PLAY AGAIN</button>
+                <button id="victory-menu-btn" class="menu-btn">🏠 MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Boss Warning -->
+        <div id="boss-warning" class="hidden">
+            <span class="warning-text">⚠️ BOSS INCOMING! ⚠️</span>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

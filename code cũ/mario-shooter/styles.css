@@ -1,0 +1,414 @@
+/* ============================================
+   SUPER MARIO SHOOTER - CSS STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 960px;
+    height: 640px;
+    background: #000;
+    border: 4px solid #ffd700;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.3),
+        0 0 60px rgba(255, 215, 0, 0.1),
+        inset 0 0 100px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* ============================================
+   CANVAS
+   ============================================ */
+#game-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* ============================================
+   MENUS
+   ============================================ */
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, 
+        #5c94fc 0%, 
+        #5c94fc 60%, 
+        #00a800 60%, 
+        #00a800 100%);
+    z-index: 100;
+}
+
+.menu.hidden {
+    display: none;
+}
+
+.game-title {
+    font-size: 36px;
+    color: #fff;
+    text-shadow: 
+        4px 4px 0 #e52521,
+        8px 8px 0 #000;
+    text-align: center;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    animation: titleBounce 1s ease-in-out infinite;
+}
+
+@keyframes titleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.menu h2 {
+    font-size: 24px;
+    color: #ffd700;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 30px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    padding: 15px 30px;
+    background: linear-gradient(180deg, #ffd700 0%, #ff8c00 100%);
+    border: 4px solid #000;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.menu-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+    background: linear-gradient(180deg, #ffec00 0%, #ffa500 100%);
+}
+
+.menu-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.credits {
+    position: absolute;
+    bottom: 20px;
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================
+   CONTROLS SCREEN
+   ============================================ */
+.controls-list {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.control-item {
+    font-size: 10px;
+    color: #fff;
+    margin: 12px 0;
+}
+
+.key {
+    display: inline-block;
+    background: #333;
+    border: 2px solid #666;
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: #ffd700;
+    margin: 0 4px;
+}
+
+/* ============================================
+   HIGH SCORES
+   ============================================ */
+.highscore-list {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 40px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    min-width: 300px;
+}
+
+.highscore-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #fff;
+    margin: 10px 0;
+    padding: 8px;
+    border-bottom: 2px solid #333;
+}
+
+.highscore-item:first-child {
+    color: #ffd700;
+}
+
+.highscore-item:nth-child(2) {
+    color: #c0c0c0;
+}
+
+.highscore-item:nth-child(3) {
+    color: #cd7f32;
+}
+
+/* ============================================
+   GAME HUD
+   ============================================ */
+#game-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+    z-index: 50;
+}
+
+#game-hud.hidden {
+    display: none;
+}
+
+.hud-left, .hud-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hud-center {
+    text-align: center;
+}
+
+.health-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.health-bar {
+    width: 120px;
+    height: 16px;
+    background: #333;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(180deg, #00ff00 0%, #00aa00 100%);
+    transition: width 0.3s;
+}
+
+.lives-display {
+    font-size: 12px;
+}
+
+.level-display {
+    font-size: 14px;
+    color: #ffd700;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.score-display {
+    font-size: 12px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hud-label {
+    font-size: 14px;
+}
+
+/* ============================================
+   POWER-UP INDICATOR
+   ============================================ */
+#powerup-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 2px solid #ffd700;
+    z-index: 50;
+}
+
+#powerup-indicator.hidden {
+    display: none;
+}
+
+#powerup-icon {
+    font-size: 24px;
+}
+
+.powerup-timer {
+    width: 60px;
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.powerup-timer::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #ff0 0%, #f80 100%);
+    animation: timerDrain 10s linear forwards;
+}
+
+@keyframes timerDrain {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* ============================================
+   LEVEL COMPLETE & GAME OVER
+   ============================================ */
+.level-stats, .final-stats {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.level-stats p, .final-stats p {
+    font-size: 12px;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.level-stats span, .final-stats span {
+    color: #ffd700;
+}
+
+.game-over-title {
+    color: #ff4444 !important;
+    text-shadow: 
+        3px 3px 0 #000,
+        0 0 20px rgba(255, 0, 0, 0.5);
+    animation: gameOverPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes gameOverPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.victory-title {
+    color: #ffd700 !important;
+    text-shadow: 
+        3px 3px 0 #000,
+        0 0 30px rgba(255, 215, 0, 0.5);
+    animation: victoryGlow 1s ease-in-out infinite;
+}
+
+@keyframes victoryGlow {
+    0%, 100% { 
+        text-shadow: 
+            3px 3px 0 #000,
+            0 0 30px rgba(255, 215, 0, 0.5);
+    }
+    50% { 
+        text-shadow: 
+            3px 3px 0 #000,
+            0 0 50px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.victory-text {
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   BOSS WARNING
+   ============================================ */
+#boss-warning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+}
+
+#boss-warning.hidden {
+    display: none;
+}
+
+.warning-text {
+    font-size: 24px;
+    color: #ff0000;
+    text-shadow: 
+        3px 3px 0 #000,
+        0 0 20px rgba(255, 0, 0, 0.8);
+    animation: warningFlash 0.3s ease-in-out infinite;
+}
+
+@keyframes warningFlash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1000px) {
+    .game-container {
+        width: 100vw;
+        height: 66.67vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+}
