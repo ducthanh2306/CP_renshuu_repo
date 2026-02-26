@@ -1,0 +1,396 @@
+/* ── Pixel Blaster – Retro Style ──────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #05050f;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── Animated BG Grid ── */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridScroll 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes gridScroll {
+    to { background-position: 40px 40px; }
+}
+
+/* ── Game Container ── */
+.game-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Header ── */
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 800px;
+    max-width: 95vw;
+    padding: 8px 0;
+    margin-bottom: 4px;
+}
+
+.game-title {
+    font-size: 14px;
+    background: linear-gradient(90deg, #0ff, #f80);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    letter-spacing: 2px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-controls button {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(0,255,255,0.3);
+    color: #0ff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+}
+
+.header-controls button:hover {
+    background: rgba(0,255,255,0.15);
+    border-color: #0ff;
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+#soundToggle {
+    font-size: 16px;
+    padding: 4px 8px;
+    font-family: sans-serif;
+}
+
+#userInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 8px;
+    color: #8f8;
+}
+
+#logoutBtn {
+    color: #f88 !important;
+    border-color: rgba(255,100,100,0.3) !important;
+}
+#logoutBtn:hover {
+    background: rgba(255,100,100,0.15) !important;
+    border-color: #f44 !important;
+}
+
+/* ── Canvas ── */
+#gameCanvas {
+    display: block;
+    border: 2px solid rgba(0,255,255,0.4);
+    box-shadow:
+        0 0 20px rgba(0,255,255,0.15),
+        inset 0 0 60px rgba(0,0,0,0.5);
+    cursor: crosshair;
+    image-rendering: pixelated;
+    width: 800px;
+    max-width: 95vw;
+    background: #0a0a1a;
+    border-radius: 2px;
+}
+
+/* CRT Scanlines overlay */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+    );
+    border-radius: 2px;
+    z-index: 2;
+}
+
+/* ── Auth Modal ── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,5,15,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal {
+    background: linear-gradient(145deg, #12122a, #0a0a1e);
+    border: 1px solid rgba(0,255,255,0.3);
+    border-radius: 4px;
+    padding: 30px;
+    width: 380px;
+    max-width: 90vw;
+    box-shadow:
+        0 0 40px rgba(0,255,255,0.1),
+        0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.modal::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 5px;
+    padding: 1px;
+    background: linear-gradient(135deg, #0ff, #f80, #0ff);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.modal h2 {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 24px;
+    color: #0ff;
+    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 8px;
+    color: #888;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #0ff;
+    box-shadow: 0 0 10px rgba(0,255,255,0.2);
+}
+
+.form-group input::placeholder {
+    color: #444;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #0aa, #088);
+    border: 1px solid #0ff;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0cc, #0aa);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #888;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    margin-top: 8px;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+}
+
+.auth-toggle {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 8px;
+    color: #666;
+}
+
+.auth-toggle a {
+    color: #0ff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.auth-toggle a:hover {
+    text-decoration: underline;
+}
+
+#authError {
+    color: #f44;
+    font-size: 8px;
+    text-align: center;
+    margin-top: 8px;
+    min-height: 12px;
+}
+
+/* ── Leaderboard Panel ── */
+.leaderboard-panel {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: linear-gradient(145deg, #12122a, #0a0a1e);
+    border: 1px solid rgba(0,255,255,0.25);
+    border-radius: 4px;
+    padding: 20px;
+    width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 0 30px rgba(0,255,255,0.08);
+    z-index: 10;
+}
+
+.leaderboard-panel.hidden {
+    display: none;
+}
+
+.leaderboard-panel h3 {
+    font-size: 11px;
+    color: #ff0;
+    text-align: center;
+    margin-bottom: 16px;
+    text-shadow: 0 0 8px rgba(255,255,0,0.4);
+}
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8px;
+}
+
+.lb-table th {
+    color: #888;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    text-align: left;
+}
+
+.lb-table td {
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #ccc;
+}
+
+.lb-table tr.lb-top td {
+    color: #ff0;
+}
+
+.lb-empty {
+    text-align: center;
+    font-size: 8px;
+    color: #666;
+    padding: 20px 0;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: #111;
+}
+::-webkit-scrollbar-thumb {
+    background: #0ff;
+    border-radius: 2px;
+}
+
+/* ── Utility ── */
+.hidden {
+    display: none !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+    .leaderboard-panel {
+        position: static;
+        transform: none;
+        width: 800px;
+        max-width: 95vw;
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-header {
+        flex-direction: column;
+        gap: 6px;
+    }
+    .game-title {
+        font-size: 11px;
+    }
+}

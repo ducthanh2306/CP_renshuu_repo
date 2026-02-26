@@ -1,0 +1,36 @@
+
+#include <iostream>
+ 
+using namespace std;
+ 
+// Hàm giải quyết cho từng test case
+void solve() {
+    long long p, q;
+    cin >> p >> q;
+ 
+    // Logic kiểm tra điều kiện thắng của Bob:
+    // 1. Tỉ số p/q >= 2/3  <==> 3*p >= 2*q
+    // 2. Tỉ số p/q < 1     <==> p < q
+    // Nếu cả 2 điều kiện thoả mãn, Bob thắng (vì Bob sẽ ép được tỉ số về 2/3).
+    // Ngược lại Alice thắng (Alice luôn né được 2/3).
+    
+    if (3 * p >= 2 * q && p < q) {
+        cout << "Bob" << endl;
+    } else {
+        cout << "Alice" << endl;
+    }
+}
+ 
+int main() {
+    // Tối ưu tốc độ nhập xuất dữ liệu (Fast I/O)
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+ 
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}

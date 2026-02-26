@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pixel Blaster - A retro 2D pixel art space shooter game. Fight waves of enemies and compete on the leaderboard!">
+    <title>Pixel Blaster — Retro Space Shooter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+
+    <!-- ── Game Container ── -->
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1 class="game-title">PIXEL BLASTER</h1>
+            <div class="header-controls">
+                <div id="userInfo" class="hidden">
+                    <span>👤 <span id="userName">GUEST</span></span>
+                    <button id="logoutBtn">LOGOUT</button>
+                </div>
+                <button id="loginBtn">LOGIN</button>
+                <button id="toggleLeaderboard">🏆 SCORES</button>
+                <button id="soundToggle">🔊</button>
+            </div>
+        </header>
+
+        <!-- Canvas Wrapper -->
+        <div style="position: relative; display: inline-block;">
+            <canvas id="gameCanvas"></canvas>
+            <div class="scanlines"></div>
+        </div>
+    </div>
+
+    <!-- ── Leaderboard Panel ── -->
+    <div id="leaderboardPanel" class="leaderboard-panel hidden">
+        <h3>🏆 HIGH SCORES</h3>
+        <div id="leaderboardContent"></div>
+    </div>
+
+    <!-- ── Auth Modal ── -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal">
+            <h2>⚡ PIXEL BLASTER</h2>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>EMAIL</label>
+                    <input type="email" id="loginEmail" placeholder="player@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary">LOGIN</button>
+                <div class="auth-toggle">
+                    No account? <a id="showRegister">REGISTER</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="hidden">
+                <div class="form-group">
+                    <label>DISPLAY NAME</label>
+                    <input type="text" id="regName" placeholder="CoolPilot99" required minlength="2" maxlength="16">
+                </div>
+                <div class="form-group">
+                    <label>EMAIL</label>
+                    <input type="email" id="regEmail" placeholder="player@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary">CREATE ACCOUNT</button>
+                <div class="auth-toggle">
+                    Have an account? <a id="showLogin">LOGIN</a>
+                </div>
+            </form>
+
+            <div id="authError"></div>
+
+            <!-- Guest Option -->
+            <button id="guestBtn" class="btn-secondary">PLAY AS GUEST</button>
+        </div>
+    </div>
+
+    <!-- ── Game Script ── -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
